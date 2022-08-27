@@ -1,7 +1,9 @@
 import sys
 import os
+import requests
 sys.path.append(os.getcwd())
 from lib import Util
+from bs4 import BeautifulSoup
 
 if __name__ == '__main__':
     results = []
@@ -10,11 +12,12 @@ if __name__ == '__main__':
     headers = {
         'User-Agent':Util.Get_UserAgent()
     }
-    response = Util.Get_Response(url=url,headers=headers)
-    soup = Util.Get_Soup(response)
+    response = requests.get(url=url,headers=headers)
+    soup = BeautifulSoup(response.text,'lxml')
     li_list = soup.select('div.article li')
     for li in li_list:
-        title = li.select('div.info div.hd a')[0].text.strip().replace('\n','').replace('\xa0',' ')
-        # star = li.select('div.star span')[0].text.split('-')[0].replace('rating','')
+        title = li.select('div.info div.hd a')[0].text
+        title = Util.Replace_Space(title, ['\n','\xa0'])
         results.append([title])
     print(results)
+    

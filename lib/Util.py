@@ -20,20 +20,8 @@ def Get_UserAgent():
             ]
     return random.choice(List)
 
-def Get_Response(url='',headers={}):
-    response = requests.get(url=url,headers=headers)
-    return response
-
-def Post_Response(url='',headers={},data={}):
-    response = requests.post(url=url,headers=headers,data=data)
-    return response
-
-def Get_Text(response,encoding='utf-8'):
-    response.encoding = encoding
-    text = response.text
-    return text
-
-def Get_Soup(response):
-    text = Get_Text(response)
-    soup = BeautifulSoup(text,'html.parser')
-    return soup
+def Replace_Space(s,parameter_list):
+    s = s.strip()
+    for parameter in parameter_list:
+        s = s.replace(parameter,'')
+    return s
