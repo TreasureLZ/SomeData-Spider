@@ -46,8 +46,8 @@ if __name__ == '__main__':
         print("采集第{}页成功！".format(page+1))
         time.sleep(1)
     with open('../DBMovieTop_Data/Data.csv','w+',encoding='utf-8') as fp:
-        header = "标题\t评分\t评论人数\t总结\t详情\t链接\n"
-        fp.write(header)
+        header = ['标题','评分','评论人数','总结','详情','链接']
+        fp.write('\t'.join(header)+'\n')
         for result in results:
             fp.write("\t".join(result)+'\n')
     
